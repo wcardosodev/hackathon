@@ -1,5 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
+html, body {
+  height: 100%;
+  background: #f7f7f7;
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+}
+
 .margin-top {
-  margin-top: 25px;
+  margin-top: 30px;
+}
+
+.navbar{
+  min-height: 5rem!important;
+}
+
+.navbar-brand {
+  margin: 0 auto;
+}
+
+.middle {
+  display: block;
+  margin: auto 0;
+}
+
+.navbar{
+  background: #333333;
 }
 
 #video-with-overlay {
@@ -7,6 +33,8 @@
   width: 1280px;
   z-index: 0;
   position: relative;
+  border: 5px solid #333333;
+  border-radius: 5px;
 }
 
 #video-with-overlay > #canvas-overlay {
@@ -19,8 +47,8 @@
   pointer-events: none; /* allows clicking through the canvas */
 }
 
-.loadButton {
-  background-color: #4caf50;
+/* .loadButton {
+  background-color: #D82931;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -31,18 +59,41 @@
 }
 
 .loadButton:hover {
-  background-color: #68b16a;
+  background-color: #333333;
   color: white;
   cursor: pointer;
-}
-
-/* * {
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-  background: #006b62;
-  position: relative;
 } */
+
+.loadButton {
+  text-transform: uppercase;
+  width: 200px;
+  height: 50px;
+  background: #F7F7F7;
+  position: relative;
+  margin-bottom: 25px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.loadButton span {
+  line-height: 50px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+.loadButton:nth-child(1) {
+  box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 6px 6px 10px rgba(0, 0, 0, 0.2);
+  color: #D82931;
+}
+.loadButton:nth-child(1):hover {
+  background-color: #D82931;
+  color: #F7F7F7;
+  box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 6px 6px 10px rgba(0, 0, 0, 0.2);
+}
+.loadButton:nth-child(1):active {
+  opacity: 1;
+  box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5), inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+  color: #333333;
+}

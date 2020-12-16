@@ -1,13 +1,10 @@
 import MyComponent from './whatever';
-// import Header from './header';
+import Header from './Header';
 
 const App = () => {
   return (
     <div className="App">
-      {/* <Header /> */}
-      <header className="App-header">
-        <h1>#Team Fuzz Hackathon Stuff :D</h1>
-      </header>
+      <Header />
       <div className="body">
         <MyComponent />
       </div>
