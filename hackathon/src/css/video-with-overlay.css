@@ -1,0 +1,48 @@
+.margin-top {
+  margin-top: 25px;
+}
+
+#video-with-overlay {
+  display: flex;
+  width: 1280px;
+  z-index: 0;
+  position: relative;
+}
+
+#video-with-overlay > #canvas-overlay {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none; /* allows clicking through the canvas */
+}
+
+.loadButton {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.loadButton:hover {
+  background-color: #68b16a;
+  color: white;
+  cursor: pointer;
+}
+
+/* * {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: #006b62;
+  position: relative;
+} */
