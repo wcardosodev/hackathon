@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as THREE from 'three';
 
 import './css/video-with-overlay.css';
-import MatchVideo from './media/video/dort_v_laz.mp4';
+import MatchVideo from './media/video/dort_v_laz_720.mp4';
 
 import freeze_frame_events from './data/freeze_frame.json';
 
@@ -11,7 +11,7 @@ const MyComponent = () => {
   const width = 1280;
   const height = 720;
   const aspect = width / height;
-  const viewAngle = 73; // Higher = closer, essentially zoom
+  const viewAngle = 68; // Higher = closer, essentially zoom
   const near = 0.1;
   const far = 2000;
   const renderer = new THREE.WebGLRenderer({

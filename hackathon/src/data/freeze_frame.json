@@ -33,7 +33,15 @@
   },
   {
     "event_uuid": "cad88ea1-2be1-4b8b-ba01-7e9ceff2ddfe",
-    "freeze_frame_x": 0,
+    "freeze_frame_x": 120,
+    "freeze_frame_y": 0,
+    "freeze_frame_team_id": 231.0,
+    "freeze_frame_role": null,
+    "defensive_line_id": 1.0
+  },
+  {
+    "event_uuid": "cad88ea1-2be1-4b8b-ba01-7e9ceff2ddfe",
+    "freeze_frame_x": -120,
     "freeze_frame_y": 0,
     "freeze_frame_team_id": 231.0,
     "freeze_frame_role": null,
