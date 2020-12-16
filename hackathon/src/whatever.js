@@ -142,29 +142,3 @@ const MyComponent = () => {
 };
 
 export default MyComponent;
-
-// {
-//   events: [
-//     {
-//       event_id: 123,
-//       ...otherproperties
-//     }
-//   ],
-//   player_positions_based_on_events: [
-//     {
-//       event_id: 123,
-//       players: [
-//         {
-//           player_id: 1,
-//           x_pos: 23,
-//           y_pos: 25
-//         },
-//         {
-//           player_id: 2,
-//           x_pos: 32,
-//           y_pos: 23
-//         }
-//       ]
-//     }
-//   ]
-// }
