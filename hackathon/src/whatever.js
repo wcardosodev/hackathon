@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import * as THREE from 'three';
+import { MeshLine, MeshLineMaterial } from 'three.meshline';
 
-import { LoadButton } from './Button';
 import './css/video-with-overlay.css';
-import MatchVideo from './media/video/LineBreakingPassToGoal.mp4';
+import MatchVideo from './media/video/liv_atl_clip.mp4';
 
-import freeze_frame_events from './data/freeze_frame.json';
 import line_breaking_pass_to_goal from './data/line_breaking_pass_to_goal.json';
 
 const MyComponent = () => {
@@ -41,64 +40,67 @@ const MyComponent = () => {
       .setAttribute('id', 'canvas-overlay');
   });
 
-  // null defensive line, means none been found
-  // 0.0 is the keeper, 1.0 is closest line to keeper, 2.0 is next line etc
-  // const event_teams = {
-  //   home_team: freeze_frame_events.filter(
-  //     (event) => event.freeze_frame_team_id === 231.0
-  //   ),
-  //   away_team: freeze_frame_events.filter(
-  //     (event) => event.freeze_frame_team_id === 24.0
-  //   ),
-  // };
-
   const events = line_breaking_pass_to_goal.map((event) => event);
 
-  const defensive_line_one = {
-    defending_team: freeze_frame_events.filter(
-      (event) =>
-        event.freeze_frame_team_id === 231.0 && event.defensive_line_id === 1.0
-    ),
-    attacking_team: freeze_frame_events.filter(
-      (event) =>
-        event.freeze_frame_team_id === 24.0 && event.defensive_line_id === 1.0
-    ),
+  const resetPointsInScene = () => {
+    for (let i = scene.children.length - 1; i >= 0; i--) {
+      const obj = scene.children[i];
+      scene.remove(obj);
+    }
   };
 
   const createPointsInScene = (points) => {
-    const material = new THREE.LineBasicMaterial({ color: 'white' });
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const line = new THREE.Line(geometry, material);
+    // const material = new THREE.LineBasicMaterial({ color: '#040482' });
+    const material = new MeshLineMaterial({ color: '#040482', lineWidth: 6 });
+    // const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    // const line = new THREE.Line(geometry, material);
+    const line = new MeshLine();
+    line.setPoints(points);
+    const mesh = new THREE.Mesh(line, material);
 
-    scene.add(line);
+    scene.add(mesh);
     renderer.render(scene, camera);
   };
 
-  const loadEvent = ({ event_time, event_defending_line }) => {
-    // goes to video at time of event
+  const loadEvent = (event_uuid) => {
+    // Reset scene
+    resetPointsInScene();
+
+    const event = events.filter((event) => event.event_uuid === event_uuid)[0];
+
     const video = document.getElementById('video');
     if (video === null) return;
     try {
-      video.currentTime = event_time; // event.time
+      video.currentTime = event.event_time_in_seconds; // event.time
       video.play(); // plays then pauses due to needing to rerender image
       video.pause();
     } catch (err) {
       console.log('i am error');
     }
 
-    const defending_line = event_defending_line.map(
-      (player) =>
-        new THREE.Vector3(player.freeze_frame_x, player.freeze_frame_y, 0)
+    const defendingPlayersLineOne = event.players.filter(
+      (players) => players.defensive_line_id === 1.0
     );
 
-    console.log(defending_line);
-    // then adds new vector line
-    createPointsInScene(defending_line);
-  };
+    const defendingPositions = defendingPlayersLineOne
+      .map(({ freeze_frame_screen_x, freeze_frame_screen_y }) => {
+        return {
+          x_pos: freeze_frame_screen_x,
+          y_pos: freeze_frame_screen_y,
+          z_pos: 0,
+        };
+      })
+      .sort((a, b) => {
+        if (a.y_pos > b.y_pos) return 1;
+        if (a.y_pos < b.y_pos) return -1;
+        return 0;
+      });
 
-  const main_event = {
-    event_time: 11.4,
-    event_defending_line: defensive_line_one.defending_team,
+    const defending_line = defendingPositions.map(
+      (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
+    );
+
+    createPointsInScene(defending_line);
   };
 
   return (
@@ -109,19 +111,11 @@ const MyComponent = () => {
             <video
               id="video"
               controls
-              // autoPlay
               muted
               src={MatchVideo}
               type="video/mp4"
             />
           </div>
-        </div>
-        <div className="container margin-top-md">
-          <LoadButton
-            class="loadButton"
-            fn={() => loadEvent(main_event)}
-            text="Load Button"
-          />
         </div>
         <div className="container margin-top-lg">
           <div className="panel">
@@ -131,13 +125,12 @@ const MyComponent = () => {
                 <div
                   key={event.event_uuid}
                   className="panel-block"
-                  onClick={() => console.log(event.event_uuid)}
+                  onClick={() => loadEvent(event.event_uuid)}
                 >
                   <div className="panel-block">
-                    <span className="panel-icon">
-                      <i className="fas fa-book" aria-hidden="true"></i>
-                    </span>
-                    {`${index}) Event Time = ${event.event_time_in_seconds}`}
+                    {`${index}) Event Time = ${
+                      Math.round(event.event_time_in_seconds * 100) / 100
+                    }`}
                   </div>
                 </div>
               );
