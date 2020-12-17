@@ -40,8 +40,8 @@ html, body {
   display: flex;
   justify-content: center;
   align-self: center;
-  width: 1344px;
-  /* width: 1280px; */
+  /* width: 1344px; */
+  width: 1280px;
   z-index: 0;
   position: relative;
 }
@@ -55,14 +55,14 @@ html, body {
 #video-with-overlay > #canvas-overlay {
   position: absolute;
   z-index: 10;
-  top: 6px;
+  /* top: 20px;
   right: 32px;
-  bottom: 6px;
-  left: 32px;
-  /* top: 0;
+  bottom: 20px;
+  left: 32px; */
+  top: 0;
   right: 0;
   bottom: 0;
-  left: 0; */
+  left: 0;
   pointer-events: none; /* allows clicking through the canvas */
 }
 
@@ -114,4 +114,14 @@ html, body {
 .active{
   background-color: #D82931;
   color: #F7F7F7;
+}
+
+.text-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel{
+  max-width: 1280px !important;
 }
