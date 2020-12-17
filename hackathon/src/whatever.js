@@ -56,7 +56,6 @@ const MyComponent = () => {
     const mesh = new THREE.Mesh(line, material);
 
     scene.add(mesh);
-    renderer.render(scene, camera);
   };
 
   const createEventPlayerRing = ({
@@ -86,8 +85,51 @@ const MyComponent = () => {
 
     scene.add(outerRing);
     // scene.add(innerCircle);
+  };
 
-    renderer.render(scene, camera);
+  const createCompactnessOverlay = (closestPlayer, farPlayer) => {
+    const distApart = farPlayer.x_pos - closestPlayer.x_pos;
+    const distApartX = closestPlayer.x_pos + farPlayer.x_pos;
+    const distApartY = closestPlayer.y_pos + farPlayer.y_pos;
+
+    // yellow dots are attackers
+    // red are defenders
+    const geometry = new THREE.PlaneGeometry(200, 4000, 32);
+    const material = new THREE.MeshBasicMaterial({
+      color: 'black',
+      opacity: 0.4,
+      side: THREE.DoubleSide,
+    });
+    const plane = new THREE.Mesh(geometry, material);
+    plane.position.set(distApartX - 100, 0, 0);
+    plane.rotateZ(90);
+    scene.add(plane);
+  };
+
+  const getPlayerCoordsObject = (player) => {
+    const { freeze_frame_screen_x, freeze_frame_screen_y } = player;
+    return {
+      x_pos: freeze_frame_screen_x,
+      y_pos: freeze_frame_screen_y,
+      z_pos: 0,
+    };
+  };
+
+  const sortXPos = (arr) => {
+    if (arr === undefined) return [];
+    return arr.sort((a, b) => {
+      if (a.x_pos > b.x_pos) return 1;
+      if (a.x_pos < b.x_pos) return -1;
+      return 0;
+    });
+  };
+
+  const sortYPos = (arr) => {
+    return arr.sort((a, b) => {
+      if (a.y_pos > b.y_pos) return 1;
+      if (a.y_pos < b.y_pos) return -1;
+      return 0;
+    });
   };
 
   const loadEvent = (event_uuid) => {
@@ -106,53 +148,98 @@ const MyComponent = () => {
       console.log('i am error');
     }
 
-    const defendingPlayersLineOne = event.players.filter(
-      (player) => player.defensive_line_id === 1.0
-    );
+    const defendingPlayers = {
+      line_one: event.players.filter(
+        (player) => player.defensive_line_id === 1.0
+      ),
+      line_two: event.players.filter(
+        (player) => player.defensive_line_id === 2.0
+      ),
+      line_three: event.players.filter(
+        (player) => player.defensive_line_id === 3.0
+      ),
+      line_four: event.players.filter(
+        (player) => player.defensive_line_id === 4.0
+      ),
+      line_five: event.players.filter(
+        (player) => player.defensive_line_id === 5.0
+      ),
+    };
 
-    const defendingPlayersLineTwo = event.players.filter(
-      (player) => player.defensive_line_id === 2.0
-    );
+    const defendingPositions = {
+      line_one: sortYPos(
+        defendingPlayers.line_one.map((player) => getPlayerCoordsObject(player))
+      ),
+      line_two: sortYPos(
+        defendingPlayers.line_two.map((player) => getPlayerCoordsObject(player))
+      ),
+      line_three: sortYPos(
+        defendingPlayers.line_three.map((player) =>
+          getPlayerCoordsObject(player)
+        )
+      ),
+      line_four: sortYPos(
+        defendingPlayers.line_four.map((player) =>
+          getPlayerCoordsObject(player)
+        )
+      ),
+      line_five: sortYPos(
+        defendingPlayers.line_five.map((player) =>
+          getPlayerCoordsObject(player)
+        )
+      ),
+    };
 
-    const defendingPositions = defendingPlayersLineOne
-      .map(({ freeze_frame_screen_x, freeze_frame_screen_y }) => {
-        return {
-          x_pos: freeze_frame_screen_x,
-          y_pos: freeze_frame_screen_y,
-          z_pos: 0,
-        };
-      })
-      .sort((a, b) => {
-        if (a.y_pos > b.y_pos) return 1;
-        if (a.y_pos < b.y_pos) return -1;
-        return 0;
-      });
+    const defending_lines = {
+      line_one: defendingPositions.line_one.map(
+        (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
+      ),
+      line_two: defendingPositions.line_two.map(
+        (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
+      ),
+      line_three: defendingPositions.line_three.map(
+        (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
+      ),
+      line_four: defendingPositions.line_four.map(
+        (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
+      ),
+      line_five: defendingPositions.line_five.map(
+        (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
+      ),
+    };
 
-    const defendingPositions2 = defendingPlayersLineTwo
-      .map(({ freeze_frame_screen_x, freeze_frame_screen_y }) => {
-        return {
-          x_pos: freeze_frame_screen_x,
-          y_pos: freeze_frame_screen_y,
-          z_pos: 0,
-        };
-      })
-      .sort((a, b) => {
-        if (a.y_pos > b.y_pos) return 1;
-        if (a.y_pos < b.y_pos) return -1;
-        return 0;
-      });
+    const defenderClosestToKeeper = sortXPos(defendingPositions.line_one)[0];
+    let defenderFurthestAway;
 
-    const defending_line = defendingPositions.map(
-      (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
-    );
+    if (defendingPositions.line_five.length > 0) {
+      console.log(5);
+      const length = sortXPos(defendingPositions.line_five).length;
+      defenderFurthestAway = sortXPos(defendingPositions.line_five)[length - 1];
+    } else if (defendingPositions.line_four.length > 0) {
+      console.log(4);
+      const length = sortXPos(defendingPositions.line_four).length;
+      defenderFurthestAway = sortXPos(defendingPositions.line_four)[length - 1];
+    } else if (defendingPositions.line_three.length > 0) {
+      console.log(3);
+      const length = sortXPos(defendingPositions.line_three).length;
+      defenderFurthestAway = sortXPos(defendingPositions.line_three)[
+        length - 1
+      ];
+    } else if (defendingPositions.line_two.length > 0) {
+      console.log(2);
+      const length = sortXPos(defendingPositions.line_two).length;
+      defenderFurthestAway = sortXPos(defendingPositions.line_two)[length - 1];
+    } else if (defendingPositions.line_one.length > 0) {
+      console.log(1);
+      const length = sortXPos(defendingPositions.line_one).length;
+      defenderFurthestAway = sortXPos(defendingPositions.line_one)[length - 1];
+    }
 
-    const defending_line2 = defendingPositions2.map(
-      (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
-    );
+    // createCompactnessOverlay(defenderClosestToKeeper, defenderFurthestAway);
 
     // Create defending points
-    createPointsInScene(defending_line);
-    createPointsInScene(defending_line2);
+    createPointsInScene(defending_lines.line_one);
+    createPointsInScene(defending_lines.line_two);
 
     // Create event player
     const eventPlayer = event.players.filter(
@@ -160,6 +247,8 @@ const MyComponent = () => {
     )[0];
 
     createEventPlayerRing(eventPlayer);
+
+    renderer.render(scene, camera);
   };
 
   return (
