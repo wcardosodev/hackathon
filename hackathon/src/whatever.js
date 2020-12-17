@@ -72,20 +72,20 @@ const MyComponent = () => {
     outerRing.position.set(freeze_frame_screen_x, freeze_frame_screen_y, 0);
     outerRing.rotateX(90);
 
-    const innerCircleGeometry = new THREE.CircleGeometry(64, 32);
-    const innerCircleMaterial = new THREE.MeshBasicMaterial({
-      color: '#333333',
-      opacity: 0.01,
-    });
-    const innerCircle = new THREE.Mesh(
-      innerCircleGeometry,
-      innerCircleMaterial
-    );
-    innerCircle.position.set(freeze_frame_screen_x, freeze_frame_screen_y, 0);
-    innerCircle.rotateX(89);
+    // const innerCircleGeometry = new THREE.CircleGeometry(64, 32);
+    // const innerCircleMaterial = new THREE.MeshBasicMaterial({
+    //   color: '#333333',
+    //   opacity: 0.01,
+    // });
+    // const innerCircle = new THREE.Mesh(
+    //   innerCircleGeometry,
+    //   innerCircleMaterial
+    // );
+    // innerCircle.position.set(freeze_frame_screen_x, freeze_frame_screen_y, 0);
+    // innerCircle.rotateX(89);
 
     scene.add(outerRing);
-    scene.add(innerCircle);
+    // scene.add(innerCircle);
 
     renderer.render(scene, camera);
   };
@@ -110,7 +110,25 @@ const MyComponent = () => {
       (player) => player.defensive_line_id === 1.0
     );
 
+    const defendingPlayersLineTwo = event.players.filter(
+      (player) => player.defensive_line_id === 2.0
+    );
+
     const defendingPositions = defendingPlayersLineOne
+      .map(({ freeze_frame_screen_x, freeze_frame_screen_y }) => {
+        return {
+          x_pos: freeze_frame_screen_x,
+          y_pos: freeze_frame_screen_y,
+          z_pos: 0,
+        };
+      })
+      .sort((a, b) => {
+        if (a.y_pos > b.y_pos) return 1;
+        if (a.y_pos < b.y_pos) return -1;
+        return 0;
+      });
+
+    const defendingPositions2 = defendingPlayersLineTwo
       .map(({ freeze_frame_screen_x, freeze_frame_screen_y }) => {
         return {
           x_pos: freeze_frame_screen_x,
@@ -128,8 +146,13 @@ const MyComponent = () => {
       (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
     );
 
+    const defending_line2 = defendingPositions2.map(
+      (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
+    );
+
     // Create defending points
     createPointsInScene(defending_line);
+    createPointsInScene(defending_line2);
 
     // Create event player
     const eventPlayer = event.players.filter(
