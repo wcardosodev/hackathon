@@ -128,7 +128,7 @@ const MyComponent = () => {
                   onClick={() => loadEvent(event.event_uuid)}
                 >
                   <div className="panel-block">
-                    {`${index}) Event Time = ${
+                    {`${index + 1}) Event Time = ${
                       Math.round(event.event_time_in_seconds * 100) / 100
                     }`}
                   </div>
