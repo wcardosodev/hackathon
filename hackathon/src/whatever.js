@@ -50,7 +50,7 @@ const MyComponent = () => {
   };
 
   const createPointsInScene = (points) => {
-    const material = new MeshLineMaterial({ color: '#040482', lineWidth: 6 });
+    const material = new MeshLineMaterial({ color: '#d82931', lineWidth: 6 });
     const line = new MeshLine();
     line.setPoints(points);
     const mesh = new THREE.Mesh(line, material);
@@ -63,13 +63,14 @@ const MyComponent = () => {
     freeze_frame_screen_x,
     freeze_frame_screen_y,
   }) => {
-    const geometry = new THREE.RingGeometry(42, 45, 32);
+    const geometry = new THREE.RingGeometry(65, 75, 32);
     const material = new THREE.MeshBasicMaterial({
-      color: '#d82931',
+      color: '#040482', // 040482 // d82931
       side: THREE.DoubleSide,
     });
     const circle = new THREE.Mesh(geometry, material);
     circle.position.set(freeze_frame_screen_x, freeze_frame_screen_y, 0);
+    circle.rotateX(90);
 
     scene.add(circle);
     renderer.render(scene, camera);
@@ -149,8 +150,10 @@ const MyComponent = () => {
                   onClick={() => loadEvent(event.event_uuid)}
                 >
                   <div className="panel-block">
-                    <span style={{fontWeight:700}}>{`Event ${index + 1}:`}</span>{" "} 
-                    <span style={{paddingLeft:5}}>{`${
+                    <span style={{ fontWeight: 700 }}>{`Event ${
+                      index + 1
+                    }:`}</span>{' '}
+                    <span style={{ paddingLeft: 5 }}>{`${
                       Math.round(event.event_time_in_seconds * 100) / 100
                     } seconds`}</span>
                   </div>
