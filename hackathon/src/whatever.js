@@ -3,7 +3,7 @@ import * as THREE from 'three';
 
 import { LoadButton } from './Button';
 import './css/video-with-overlay.css';
-import MatchVideo from './media/video/main_video.mp4';
+import MatchVideo from './media/video/LineBreakingPassToGoal.mp4';
 
 import freeze_frame_events from './data/freeze_frame.json';
 import line_breaking_pass_to_goal from './data/line_breaking_pass_to_goal.json';
@@ -18,10 +18,17 @@ const MyComponent = () => {
   });
   renderer.setSize(width, height);
 
-  const // Setup scene
-  scene = new THREE.Scene();
-  const camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);
-  scene.add( camera );
+  // Setup scene
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(
+    width / -2,
+    width / 2,
+    height / 2,
+    height / -2,
+    1,
+    1000
+  );
+  scene.add(camera);
   camera.position.set(0, 0, 100);
   camera.lookAt(0, 0, 0);
 
@@ -44,6 +51,8 @@ const MyComponent = () => {
   //     (event) => event.freeze_frame_team_id === 24.0
   //   ),
   // };
+
+  const events = line_breaking_pass_to_goal.map((event) => event);
 
   const defensive_line_one = {
     defending_team: freeze_frame_events.filter(
@@ -96,40 +105,47 @@ const MyComponent = () => {
     <>
       <section className="section">
         <div className="container">
-            <div id="video-with-overlay">
-              <video
-                id="video"
-                controls
-                // autoPlay
-                muted
-                src={MatchVideo}
-                type="video/mp4"
-              />
-            </div>
+          <div id="video-with-overlay">
+            <video
+              id="video"
+              controls
+              // autoPlay
+              muted
+              src={MatchVideo}
+              type="video/mp4"
+            />
           </div>
-          <div className="container margin-top-md">
-            <LoadButton class="loadButton" fn={() => loadEvent(main_event)} text="Load Button" />
+        </div>
+        <div className="container margin-top-md">
+          <LoadButton
+            class="loadButton"
+            fn={() => loadEvent(main_event)}
+            text="Load Button"
+          />
+        </div>
+        <div className="container margin-top-lg">
+          <div className="panel">
+            <h2 className="panel-heading">Events</h2>
+            {events.map((event, index) => {
+              return (
+                // <a key={event.event_uuid} href="#" className="panel-block is-active">
+                //   <div className="panel-block">
+                //     <span className="panel-icon">
+                //       <i className="fas fa-book" aria-hidden="true"></i>
+                //     </span>
+                //     {`${index}) Event Time = ${event.event_time_in_seconds}`}
+                //   </div>
+                // </a>
+                <button
+                  key={index}
+                  onClick={() => console.log(event.event_uuid)}
+                >
+                  {`${index}) Event Time = ${event.event_time_in_seconds}`}
+                </button>
+              );
+            })}
           </div>
-          <div className="container margin-top-lg">
-            <div className="panel">
-              <h2 className="panel-heading">Events</h2>
-              {
-                //event list to select
-                freeze_frame_events.map((event, index) => {
-                  return(
-                    <a key={index} href className="panel-block is-active">
-                      <div className="panel-block">
-                        <span className="panel-icon">
-                          <i className="fas fa-book" aria-hidden="true"></i>
-                        </span>
-                        {event.event_uuid}
-                      </div>
-                    </a>
-                  )
-                })
-              }
-            </div>
-          </div>
+        </div>
       </section>
     </>
   );
