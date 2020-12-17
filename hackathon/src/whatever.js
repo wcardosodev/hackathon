@@ -128,20 +128,18 @@ const MyComponent = () => {
             <h2 className="panel-heading">Events</h2>
             {events.map((event, index) => {
               return (
-                // <a key={event.event_uuid} href="#" className="panel-block is-active">
-                //   <div className="panel-block">
-                //     <span className="panel-icon">
-                //       <i className="fas fa-book" aria-hidden="true"></i>
-                //     </span>
-                //     {`${index}) Event Time = ${event.event_time_in_seconds}`}
-                //   </div>
-                // </a>
-                <button
-                  key={index}
+                <div
+                  key={event.event_uuid}
+                  className="panel-block"
                   onClick={() => console.log(event.event_uuid)}
                 >
-                  {`${index}) Event Time = ${event.event_time_in_seconds}`}
-                </button>
+                  <div className="panel-block">
+                    <span className="panel-icon">
+                      <i className="fas fa-book" aria-hidden="true"></i>
+                    </span>
+                    {`${index}) Event Time = ${event.event_time_in_seconds}`}
+                  </div>
+                </div>
               );
             })}
           </div>
