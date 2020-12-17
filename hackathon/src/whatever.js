@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as THREE from 'three';
 
+import { LoadButton } from './Button';
 import './css/video-with-overlay.css';
 import MatchVideo from './media/video/first_vid.mp4';
 
@@ -34,14 +35,14 @@ const MyComponent = () => {
 
   // null defensive line, means none been found
   // 0.0 is the keeper, 1.0 is closest line to keeper, 2.0 is next line etc
-  const event_teams = {
-    home_team: freeze_frame_events.filter(
-      (event) => event.freeze_frame_team_id === 231.0
-    ),
-    away_team: freeze_frame_events.filter(
-      (event) => event.freeze_frame_team_id === 24.0
-    ),
-  };
+  // const event_teams = {
+  //   home_team: freeze_frame_events.filter(
+  //     (event) => event.freeze_frame_team_id === 231.0
+  //   ),
+  //   away_team: freeze_frame_events.filter(
+  //     (event) => event.freeze_frame_team_id === 24.0
+  //   ),
+  // };
 
   const defensive_line_one = {
     defending_team: freeze_frame_events.filter(
@@ -83,18 +84,9 @@ const MyComponent = () => {
     console.log(defending_line);
     // then adds new vector line
     createPointsInScene(defending_line);
-
-    // createPointsInScene([
-    //   new THREE.Vector3(-25, -5, 0),
-    //   new THREE.Vector3(0, -15, 0),
-    //   new THREE.Vector3(0, 62, 0),
-    //   new THREE.Vector3(0, 4, 0),
-    //   new THREE.Vector3(45, 5, 0),
-    // ]);
   };
 
   const main_event = {
-    // 1690
     event_time: 4,
     event_defending_line: defensive_line_one.defending_team,
   };
@@ -114,22 +106,29 @@ const MyComponent = () => {
               />
             </div>
           </div>
-          <div className="container margin-top">
-            <button
-              className="loadButton"
-              onClick={() => loadEvent(main_event)}
-            >
-              <span>Load Event</span>
-            </button>
+          <div className="container margin-top-md">
+            <LoadButton class="loadButton" fn={() => loadEvent(main_event)} text="Load Button" />
           </div>
-            {/* <ul>
+          <div className="container margin-top-lg">
+            <div className="panel">
+              <h2 className="panel-heading">Events</h2>
               {
                 //event list to select
-                freeze_frame_events.map((event) => {
-                  return <li>{event.event_uuid}</li>;
+                freeze_frame_events.map((event, index) => {
+                  return(
+                    <a key={index} href className="panel-block is-active">
+                      <div className="panel-block">
+                        <span className="panel-icon">
+                          <i className="fas fa-book" aria-hidden="true"></i>
+                        </span>
+                        {event.event_uuid}
+                      </div>
+                    </a>
+                  )
                 })
               }
-            </ul> */}
+            </div>
+          </div>
       </section>
     </>
   );

@@ -5,7 +5,8 @@
     "freeze_frame_y": 37.4150019045,
     "freeze_frame_team_id": 231.0,
     "freeze_frame_role": "keeper",
-    "defensive_line_id": 0.0
+    "defensive_line_id": 0.0,
+    "event_time": 787
   },
   {
     "event_uuid": "cad88ea1-2be1-4b8b-ba01-7e9ceff2ddfe",
@@ -13,7 +14,8 @@
     "freeze_frame_y": 14.8547593854,
     "freeze_frame_team_id": 231.0,
     "freeze_frame_role": null,
-    "defensive_line_id": 2.0
+    "defensive_line_id": 2.0,
+    "event_time": 888
   },
   {
     "event_uuid": "cad88ea1-2be1-4b8b-ba01-7e9ceff2ddfe",
@@ -21,7 +23,8 @@
     "freeze_frame_y": 24.5644667215,
     "freeze_frame_team_id": 231.0,
     "freeze_frame_role": null,
-    "defensive_line_id": 2.0
+    "defensive_line_id": 2.0,
+    "event_time": 888
   },
   {
     "event_uuid": "cad88ea1-2be1-4b8b-ba01-7e9ceff2ddfe",
@@ -29,7 +32,8 @@
     "freeze_frame_y": 42,
     "freeze_frame_team_id": 231.0,
     "freeze_frame_role": null,
-    "defensive_line_id": 1.0
+    "defensive_line_id": 1.0,
+    "event_time": 4
   },
   {
     "event_uuid": "cad88ea1-2be1-4b8b-ba01-7e9ceff2ddfe",
@@ -37,7 +41,8 @@
     "freeze_frame_y": -18,
     "freeze_frame_team_id": 231.0,
     "freeze_frame_role": null,
-    "defensive_line_id": 1.0
+    "defensive_line_id": 1.0,
+    "event_time": 4
   },
   {
     "event_uuid": "cad88ea1-2be1-4b8b-ba01-7e9ceff2ddfe",
@@ -45,7 +50,8 @@
     "freeze_frame_y": -135,
     "freeze_frame_team_id": 231.0,
     "freeze_frame_role": null,
-    "defensive_line_id": 1.0
+    "defensive_line_id": 1.0,
+    "event_time": 4
   },
   {
     "event_uuid": "cad88ea1-2be1-4b8b-ba01-7e9ceff2ddfe",

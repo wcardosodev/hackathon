@@ -13,7 +13,7 @@ const Header = () => {
         </nav>
 
         <header className="App-header">
-        <h1 className="title margin-top has-text-centered">#Team Fuzz Hackathon Stuff :D</h1>
+        <h1 className="title margin-top-lg has-text-centered">#Team Fuzz Hackathon Stuff :D</h1>
             </header>
         </>
     )
