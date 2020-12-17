@@ -50,15 +50,28 @@ const MyComponent = () => {
   };
 
   const createPointsInScene = (points) => {
-    // const material = new THREE.LineBasicMaterial({ color: '#040482' });
     const material = new MeshLineMaterial({ color: '#040482', lineWidth: 6 });
-    // const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    // const line = new THREE.Line(geometry, material);
     const line = new MeshLine();
     line.setPoints(points);
     const mesh = new THREE.Mesh(line, material);
 
     scene.add(mesh);
+    renderer.render(scene, camera);
+  };
+
+  const createEventPlayerRing = ({
+    freeze_frame_screen_x,
+    freeze_frame_screen_y,
+  }) => {
+    const geometry = new THREE.RingGeometry(42, 45, 32);
+    const material = new THREE.MeshBasicMaterial({
+      color: '#d82931',
+      side: THREE.DoubleSide,
+    });
+    const circle = new THREE.Mesh(geometry, material);
+    circle.position.set(freeze_frame_screen_x, freeze_frame_screen_y, 0);
+
+    scene.add(circle);
     renderer.render(scene, camera);
   };
 
@@ -79,7 +92,7 @@ const MyComponent = () => {
     }
 
     const defendingPlayersLineOne = event.players.filter(
-      (players) => players.defensive_line_id === 1.0
+      (player) => player.defensive_line_id === 1.0
     );
 
     const defendingPositions = defendingPlayersLineOne
@@ -100,7 +113,15 @@ const MyComponent = () => {
       (player) => new THREE.Vector3(player.x_pos, player.y_pos, 0)
     );
 
+    // Create defending points
     createPointsInScene(defending_line);
+
+    // Create event player
+    const eventPlayer = event.players.filter(
+      (player) => player.freeze_frame_role === 'event'
+    )[0];
+
+    createEventPlayerRing(eventPlayer);
   };
 
   return (

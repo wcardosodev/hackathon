@@ -29,7 +29,7 @@
         "freeze_frame_screen_x": 265.12322400000005,
         "freeze_frame_screen_y": -155.4506024,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -148,7 +148,7 @@
         "freeze_frame_screen_x": 91.92128254,
         "freeze_frame_screen_y": -129.42650600000002,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -260,7 +260,7 @@
         "freeze_frame_screen_x": 244.80776580000003,
         "freeze_frame_screen_y": -90.39036145,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -421,7 +421,7 @@
         "freeze_frame_screen_x": -63.20741285,
         "freeze_frame_screen_y": -79.54698795,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -547,7 +547,7 @@
         "freeze_frame_screen_x": -408.09389619999996,
         "freeze_frame_screen_y": -192.3180723,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -680,7 +680,7 @@
         "freeze_frame_screen_x": -82.79805854,
         "freeze_frame_screen_y": -177.1373494,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -771,7 +771,7 @@
         "freeze_frame_screen_x": 315.5946463,
         "freeze_frame_screen_y": -122.92048190000001,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -890,7 +890,7 @@
         "freeze_frame_screen_x": 145.41620830000002,
         "freeze_frame_screen_y": -51.35421687,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -1044,7 +1044,7 @@
         "freeze_frame_screen_x": -251.4590969,
         "freeze_frame_screen_y": -125.08915659999998,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
@@ -1191,7 +1191,7 @@
         "freeze_frame_screen_x": -67.73702015,
         "freeze_frame_screen_y": 109.1277108,
         "freeze_frame_team_id": 231,
-        "freeze_frame_role": "event",
+        "freeze_frame_role": null,
         "defensive_line_id": null
       },
       {
