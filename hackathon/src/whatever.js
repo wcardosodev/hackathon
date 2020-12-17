@@ -10,10 +10,6 @@ const MyComponent = () => {
   // Setup Renderer
   const width = 1280;
   const height = 720;
-  const aspect = width / height;
-  const viewAngle = 68; // Higher = closer, essentially zoom
-  const near = 0.1;
-  const far = 2000;
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
     preserveDrawingBuffer: true,
@@ -21,10 +17,9 @@ const MyComponent = () => {
   renderer.setSize(width, height);
 
   const // Setup scene
-    scene = new THREE.Scene();
-
-  // Setup Camera
-  const camera = new THREE.PerspectiveCamera(viewAngle, aspect, near, far);
+  scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 1000);
+  scene.add( camera );
   camera.position.set(0, 0, 100);
   camera.lookAt(0, 0, 0);
 
@@ -99,7 +94,8 @@ const MyComponent = () => {
   };
 
   const main_event = {
-    event_time: 848,
+    // 1690
+    event_time: 4,
     event_defending_line: defensive_line_one.defending_team,
   };
 
@@ -107,7 +103,6 @@ const MyComponent = () => {
     <>
       <section className="section">
         <div className="container">
-          <div className="column is-three-quarters">
             <div id="video-with-overlay">
               <video
                 id="video"
@@ -119,13 +114,14 @@ const MyComponent = () => {
               />
             </div>
           </div>
-          <div className="column is-one-quarter">
+          <div className="container margin-top">
             <button
               className="loadButton"
               onClick={() => loadEvent(main_event)}
             >
               <span>Load Event</span>
             </button>
+          </div>
             {/* <ul>
               {
                 //event list to select
@@ -134,8 +130,6 @@ const MyComponent = () => {
                 })
               }
             </ul> */}
-          </div>
-        </div>
       </section>
     </>
   );
