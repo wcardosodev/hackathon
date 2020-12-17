@@ -3,7 +3,7 @@ import * as THREE from 'three';
 
 import { LoadButton } from './Button';
 import './css/video-with-overlay.css';
-import MatchVideo from './media/video/LineBreakingPassToGoal.mp4';
+import MatchVideo from './media/video/liv_atl_clip.mp4';
 
 import freeze_frame_events from './data/freeze_frame.json';
 import line_breaking_pass_to_goal from './data/line_breaking_pass_to_goal.json';
@@ -130,14 +130,14 @@ const MyComponent = () => {
               return (
                 <div
                   key={event.event_uuid}
-                  className="panel-block"
+                  className="panel-block panel-event"
                   onClick={() => console.log(event.event_uuid)}
                 >
                   <div className="panel-block">
                     <span className="panel-icon">
                       <i className="fas fa-book" aria-hidden="true"></i>
                     </span>
-                    {`${index}) Event Time = ${event.event_time_in_seconds}`}
+                    <p>{`${index}) Event Time = ${event.event_time_in_seconds}`}</p>
                   </div>
                 </div>
               );
