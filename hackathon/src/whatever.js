@@ -63,16 +63,30 @@ const MyComponent = () => {
     freeze_frame_screen_x,
     freeze_frame_screen_y,
   }) => {
-    const geometry = new THREE.RingGeometry(65, 75, 32);
-    const material = new THREE.MeshBasicMaterial({
+    const outerRingGeometry = new THREE.RingGeometry(65, 75, 32);
+    const outerRingMaterial = new THREE.MeshBasicMaterial({
       color: '#040482', // 040482 // d82931
       side: THREE.DoubleSide,
     });
-    const circle = new THREE.Mesh(geometry, material);
-    circle.position.set(freeze_frame_screen_x, freeze_frame_screen_y, 0);
-    circle.rotateX(90);
+    const outerRing = new THREE.Mesh(outerRingGeometry, outerRingMaterial);
+    outerRing.position.set(freeze_frame_screen_x, freeze_frame_screen_y, 0);
+    outerRing.rotateX(90);
 
-    scene.add(circle);
+    const innerCircleGeometry = new THREE.CircleGeometry(64, 32);
+    const innerCircleMaterial = new THREE.MeshBasicMaterial({
+      color: '#333333',
+      opacity: 0.01,
+    });
+    const innerCircle = new THREE.Mesh(
+      innerCircleGeometry,
+      innerCircleMaterial
+    );
+    innerCircle.position.set(freeze_frame_screen_x, freeze_frame_screen_y, 0);
+    innerCircle.rotateX(89);
+
+    scene.add(outerRing);
+    scene.add(innerCircle);
+
     renderer.render(scene, camera);
   };
 
