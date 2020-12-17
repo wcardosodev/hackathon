@@ -3,9 +3,10 @@ import * as THREE from 'three';
 
 import { LoadButton } from './Button';
 import './css/video-with-overlay.css';
-import MatchVideo from './media/video/first_vid.mp4';
+import MatchVideo from './media/video/main_video.mp4';
 
 import freeze_frame_events from './data/freeze_frame.json';
+import line_breaking_pass_to_goal from './data/line_breaking_pass_to_goal.json';
 
 const MyComponent = () => {
   // Setup Renderer
@@ -87,7 +88,7 @@ const MyComponent = () => {
   };
 
   const main_event = {
-    event_time: 4,
+    event_time: 11.4,
     event_defending_line: defensive_line_one.defending_team,
   };
 
